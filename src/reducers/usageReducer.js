@@ -18,6 +18,9 @@ const usage = (state = initialState, action) => {
     switch (action.type) {
         case UsageActions.GET_POKEMON:
             return state.list.find(p => p.name === action.name);
+        case UsageActions.SELECT_POKEMON:
+            let selectedPokemon = state.list.find(p => p.name === action.name);
+            return (selectedPokemon !== undefined) ? Object.assign({}, state, { selectedPokemon }) : state;
         default:
             return state;
     }
