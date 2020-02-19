@@ -1,5 +1,8 @@
 import { applyMiddleware } from 'redux';
+import metagameMiddleware from './metagame';
 
-const allMiddleware = applyMiddleware();
+const allMiddleware = applyMiddleware(
+    metagameMiddleware
+);
 
 export default allMiddleware;
