@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const before = require('./data/before');
+
 let plugins = [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -15,6 +17,12 @@ let plugins = [
 ];
 
 const config = {
+    devServer: {
+        before,
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000
+    },
     entry: {
         main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/index.js']
     },
@@ -27,8 +35,7 @@ const config = {
     target: 'web',
     devtool: '#source-map',
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             },
