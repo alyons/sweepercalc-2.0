@@ -1,5 +1,5 @@
-const express = require('express');
-const request = require('request-promise-native');
+import express from 'express';
+import request from 'request-promise-native';
 const router = express.Router();
 
 router.get('/:year/:month/:gen/:meta/:rank', (req, res) => {
@@ -13,4 +13,4 @@ router.get('/:year/:month/:gen/:meta/:rank', (req, res) => {
         .catch(error => { res.status(400).send(error); });
 });
 
-module.exports = router;
+export default router;
