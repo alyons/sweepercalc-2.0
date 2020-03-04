@@ -7,7 +7,7 @@ import App from './components/App';
 import allMiddleware from './middleware';
 import rootReducer from './reducers';
 
-const composedEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composedEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line no-undef
 
 const store = createStore(
     rootReducer,
@@ -18,5 +18,7 @@ render(
     <Provider store={store}>
         <App />
     </Provider>,
-    document.getElementById('root')
+    document.getElementById('root') // eslint-disable-line no-undef
 );
+
+if (module.hot) module.hot.accept(); // eslint-disable-line no-undef
