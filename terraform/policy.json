@@ -1,0 +1,13 @@
+{
+    "Id": "Policy1587232500925",
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "PublicReadGetObject",
+        "Action": [
+            "s3:GetObject"
+        ],
+        "Effect": "Allow",
+        "Resource": ["arn:aws:s3:::smogon-data.platinumleo.com/*"],
+        "Principal": "*"
+    }]
+}

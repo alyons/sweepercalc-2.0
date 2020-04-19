@@ -24,6 +24,13 @@ const usage = (state = initialState, action) => {
         }
         case MetagameActions.FETCH_METAGAME_DATA_SUCCESS: {
             console.log('Fetched data successfully');
+            state.list = [];
+            let names = Array.from(Object.keys(action.payload.data));
+            names.forEach(name => {
+                state.list.push(Object.assign({}, action.payload.data[name], { name }));
+            });
+            state.list.sort(usageComparison);
+            state.selectedPokemon = state.list[0];
             return state;
         }
         default:

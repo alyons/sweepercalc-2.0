@@ -9,13 +9,13 @@ RUN npm ci
 FROM dependencies as build
 WORKDIR /app
 COPY ./ /app
-RUN npm run build
+RUN npm run buildProd
 
 FROM node:12-alpine
 COPY --from=dependencies /app/package.json ./
 RUN npm install --only=production
 COPY --from=build /app/dist ./dist
-COPY ./server ./
+# RUN pwd && ls -al dist
 
 ENTRYPOINT [ "node" ]
-CMD [ "index.js" ]
+CMD [ "/dist/server.js" ]
