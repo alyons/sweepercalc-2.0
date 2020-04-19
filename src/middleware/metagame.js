@@ -17,7 +17,7 @@ const metagameMiddleware = (store) => (next) => (action) => {
     const state = store.getState();
     const { year, month, gen, format, rank } = state.metagame;
     const request = {
-        endpoint: `http://localhost:8090/smogon/${year}/${month}/${gen}/${format}/${rank}`,
+        endpoint: `${window.location}smogon/${year}/${month}/${gen}/${format}/${rank}`,
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         types: [
@@ -26,6 +26,7 @@ const metagameMiddleware = (store) => (next) => (action) => {
             MetagameActions.FETCH_METAGAME_DATA_FAILURE,
         ]
     };
+    console.log(request);
 
     store.dispatch(createAction(request));
 };
