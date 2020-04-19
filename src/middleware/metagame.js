@@ -16,7 +16,6 @@ const metagameMiddleware = (store) => (next) => (action) => {
     if (!actionWhiteList.includes(action.type)) return;
     const state = store.getState();
     const { year, month, gen, format, rank } = state.metagame;
-    // const location = window.location;
     const request = {
         endpoint: `http://localhost:8090/smogon/${year}/${month}/${gen}/${format}/${rank}`,
         method: 'GET',
