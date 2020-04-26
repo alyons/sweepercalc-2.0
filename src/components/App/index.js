@@ -65,7 +65,7 @@ class App extends React.Component {
     if (isLoading) {
       main = <Row><Loading /></Row>;
     } else {
-      if (size < breakpoints.tabletSm) {
+      if (size != null && size < breakpoints.tabletSm) {
         switch(view) {
           default:
             main = <Row><UsageList /></Row>;
