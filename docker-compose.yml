@@ -6,7 +6,7 @@ services:
     networks:
       - basic_network
     volumes:
-      - type: volumes
+      - type: volume
         source: dbdata
         target: /data/db
   app:
