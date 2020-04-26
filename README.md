@@ -19,8 +19,9 @@ forms of development.
 
 ## Building for Deployment
 
- - Create a Lightsail instance with the `` script as the launch script.
- - Run [Project In Progress] to parse data... (could do a few things to make that work)
- - ???
- - Profit
- - There is terraform, please use it
+Use [this video](https://www.youtube.com/watch?v=z525kfneC6E) as a basis for building the application.
+
+1. Create a Lightsail Ubuntu Container with `lightsail-compose.sh` as the launch script
+2. Create a Loadbalancer and attach it to the container
+3. Map Route53 to the Load Balancer with the correct url
+4. Create a Certificate in Lightsail (you cannot use ACM with Lightsail)
