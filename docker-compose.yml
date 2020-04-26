@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+  db:
+    image: mongo:latest
+    networks:
+      - basic_network
+    volumes:
+      - type: volumes
+        source: dbdata
+        target: /data/db
+  app:
+    image: blazephoenix/smogon-data-visualizer:latest
+    ports:
+      - "80:8090"
+    networks:
+      - basic_network
+    environment:
+      - DB_URL=mongodb://db:27017
+
+networks:
+  basic_network:
+
+volumes:
+  dbdata:
