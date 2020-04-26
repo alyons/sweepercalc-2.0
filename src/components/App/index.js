@@ -58,26 +58,42 @@ class App extends React.Component {
     setActiveBreakpoint(name, size);
   }
 
+  getLoadingComponents() {
+    return <Row><Loading /></Row>;
+  }
+
+  getUsageList() {
+    return <Row><UsageList /></Row>;
+  }
+
+  getDetails() {
+    return <Row><Details /></Row>
+  }
+
+  getDefaultComponents() {
+    return (
+        <Row>
+          <Col><UsageList /></Col>
+          <Col><Details /></Col>
+        </Row>
+    )
+  }
+
   render() {
     const { isLoading, size, view } = this.props;
     let main;
 
     if (isLoading) {
-      main = <Row><Loading /></Row>;
+      main = this.getLoadingComponents();
     } else {
       if (size != null && size < breakpoints.tabletSm) {
         switch(view) {
           default:
-            main = <Row><UsageList /></Row>;
+            main = this.getUsageList();
             break;
         }
       } else {
-        main = (
-          <Row>
-            <Col><UsageList /></Col>
-            <Col><Details /></Col>
-          </Row>
-          );
+        main = this.getDefaultComponents();
       }
     }
 
@@ -87,9 +103,7 @@ class App extends React.Component {
           <Row>
             <Header />
           </Row>
-          <Row>
-            {main}
-          </Row>
+          {main}
         </Container>
       </div>
     )
