@@ -7,6 +7,8 @@ import App from './components/App';
 import allMiddleware from './middleware';
 import rootReducer from './reducers';
 
+import './index.css';
+
 const composedEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line no-undef
 
 const store = createStore(

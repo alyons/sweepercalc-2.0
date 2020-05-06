@@ -1,5 +1,8 @@
 .Loading {
-  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -40px 0 0 -40px;
 }
 
 .lds-roller {
