@@ -12,6 +12,7 @@
     },
     "repository": "https://github.com/alyons/sweepercalc-2.0",
     "dependencies": {
+        "aws-sdk": "^2.536.0",
         "express": "^4.17.1",
         "mongodb": "^3.5.7",
         "react": "^16.9.0",
@@ -47,7 +48,6 @@
         "@babel/core": "^7.6.2",
         "@babel/preset-env": "^7.6.2",
         "@babel/preset-react": "^7.0.0",
-        "aws-sdk": "^2.536.0",
         "axios": "^0.19.0",
         "babel-core": "^6.26.3",
         "babel-eslint": "^10.0.3",
