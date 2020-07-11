@@ -31,40 +31,67 @@ function parseMetagame(metagame) {
     return [gen, format, rank];
 }
 
-request(SMOGON_URL)
-    .then(timeResponse => {
-        let timePeriods = [];
-        timeResponse.match(TIME_REGEX).forEach(match => {
-            if (timePeriods.indexOf(match) === -1) timePeriods.push(match);
-            let [year, month] = match.split('-');
-            if (dataObject[year] === undefined) dataObject[year] = {};
-            if (dataObject[year][month] === undefined) dataObject[year][month] = {};
-        });
-        return timePeriods;
-    }).then(timePeriods => {
-        return Promise.all(timePeriods.map(t => request(`${SMOGON_URL}/${t}/chaos`)));
-    }).then(metaResponses => {
-        metaResponses.forEach(metaList => {
-            let [year, month] = metaList.match(TIME_REGEX)[0].split('-');
-            let metagames = metaList.match(META_REGEX);
-            metagames.forEach(value => {
-                let item = value.substring(1);
-                try {
-                    let [gen, format, rank] = parseMetagame(item);
-                    if (dataObject[year][month][gen] === undefined) dataObject[year][month][gen] = {};
-                    if (dataObject[year][month][gen][format] === undefined) dataObject[year][month][gen][format] = {};
-                    dataObject[year][month][gen][format][rank] = item;
-                } catch (err) {
-                    console.log(`Error found with: ${item} in ${year}/${month}`);
-                    throw err;
-                }
-                });
-        });
-        return JSON.stringify(dataObject);
-    }).then(data => {
-        fs.writeFileSync('metagames.json', data);
-    }).then(() => {
-        console.log('Mission Complete!');
-    }).catch(err => {
-        console.error(err);
-    });
+// request(SMOGON_URL)
+//     .then(timeResponse => {
+//         let timePeriods = [];
+//         timeResponse.match(TIME_REGEX).forEach(match => {
+//             if (timePeriods.indexOf(match) === -1) timePeriods.push(match);
+//             let [year, month] = match.split('-');
+//             if (dataObject[year] === undefined) dataObject[year] = {};
+//             if (dataObject[year][month] === undefined) dataObject[year][month] = {};
+//         });
+//         return timePeriods;
+//     }).then(timePeriods => {
+//         return Promise.all(timePeriods.map(t => request(`${SMOGON_URL}/${t}/chaos`)));
+//     }).then(metaResponses => {
+//         metaResponses.forEach(metaList => {
+//             let [year, month] = metaList.match(TIME_REGEX)[0].split('-');
+//             let metagames = metaList.match(META_REGEX);
+//             metagames.forEach(value => {
+//                 let item = value.substring(1);
+//                 try {
+//                     let [gen, format, rank] = parseMetagame(item);
+//                     if (dataObject[year][month][gen] === undefined) dataObject[year][month][gen] = {};
+//                     if (dataObject[year][month][gen][format] === undefined) dataObject[year][month][gen][format] = {};
+//                     dataObject[year][month][gen][format][rank] = item;
+//                 } catch (err) {
+//                     console.log(`Error found with: ${item} in ${year}/${month}`);
+//                     throw err;
+//                 }
+//             });
+//         });
+
+//         let objectList = [];
+//         Object.keys(dataObject).forEach((year) => {
+//             Object.keys(dataObject[year]).forEach((month) => {
+//                 Object.keys(dataObject[year][month]).forEach((gen) => {
+//                     Object.keys(dataObject[year][month][gen]).forEach((format) => {
+//                         Object.keys(dataObject[year][month][gen][format]).forEach((rank) => {
+//                             objectList.push({ year, month, gen, format, rank, jsonLink: dataObject[year][month][gen][format][rank] });
+//                         });
+//                     });
+//                 });
+//             });
+//         });
+//         return objectList;
+//     }).then(data => {
+//         // fs.writeFileSync('metagames.json', JSON.stringify(data));
+//         return Promise.all(data.map(body => {
+//             let options = {
+//                 method: 'POST',
+//                 uri: 'http://localhost:8090/api/metagames',
+//                 body,
+//                 json: true
+//             };
+
+//             return request(options);
+//         }));
+//     }).then(response => {
+//         console.log('Mission Complete!');
+//         console.log(JSON.stringify(response));
+//     }).catch(err => {
+//         console.error(err);
+//     });
+
+request('http://localhost:8090/api/metagames?limit=0')
+    .then(data)

@@ -18,7 +18,6 @@ const initialState = {
     }
 };
 
-
 const actionTypeToNumber = (type) => {
     switch(type) {
         case MetagameActions.SELECT_YEAR: return 0;
